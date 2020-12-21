@@ -1,0 +1,95 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Photo Album</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script>
+        <script type="text/javascript" src="lib/CryptoJS/rollups/hmac-sha256.js"></script>
+        <script type="text/javascript" src="lib/CryptoJS/rollups/sha256.js"></script>
+        <script type="text/javascript" src="lib/CryptoJS/components/hmac.js"></script>
+        <script type="text/javascript" src="lib/CryptoJS/components/enc-base64.js"></script>
+        <script type="text/javascript" src="lib/url-template/url-template.js"></script>
+        <script type="text/javascript" src="lib/apiGatewayCore/sigV4Client.js"></script>
+        <script type="text/javascript" src="lib/apiGatewayCore/apiGatewayClient.js"></script>
+        <script type="text/javascript" src="lib/apiGatewayCore/simpleHttpClient.js"></script>
+        <script type="text/javascript" src="lib/apiGatewayCore/utils.js"></script>
+        <script type="text/javascript" src="apigClient.js"></script>
+
+        <script type="text/javascript" src="aws_credentials.js"></script>
+        <script src="frontend.js"></script>
+
+        <style>
+        #stop-button {
+            margin: 5px 0;
+        }
+
+        #error {
+            padding: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1.4rem;
+            border-radius: 5px 5px 5px 5px;
+            color: #D8000C;
+            background-color: #FFD2D2;
+            display: none;
+        }
+
+        .isa_error i {
+            margin: 2px 12px;
+            font-size: 1.5em;
+            vertical-align: middle;
+        }
+
+        #logo {
+            height: 52px;
+        }
+        </style>
+    </head>
+
+    <body onload="init()">
+        <br><br>
+        <div class="container">
+            <div class="card">
+                <h5 class="card-header">Get pics with text/voice input:</h5>
+                <div class="card-body first-card">
+                    <p class="card-text">Please say something like "Show me [object]" to see all the related photos.</p>
+                    <div class="input-group mb-3">
+                        <input type="text" id="transcript" class="form-control" placeholder="Ex: Show me trees!" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-info" type="button" id="record_button">🎤</button>
+                        </div>
+                    </div>
+
+                    <div id="error" class="isa_error"></div>
+                    <div class="row">
+                        <div class="col">
+                            <button id="stop-record" class="button-xl btn btn-info" title="Search Transcription" disabled>
+                                <i class="fa fa-microphone"></i> Stop Recording
+                            </button>
+                            <button id="search-button" class="button-xl btn btn-info" title="Search Transcription">
+                                <i class="fa fa-microphone"></i> Search
+                            </button>
+                            <button id="reset-button" class="button-xl button-secondary btn btn-info" title="Clear Transcript">Clear Transcript</button>
+                        </div>
+                    </div>
+                    <div class="card-columns frame"></div>
+                </div>
+            </div>
+            <br>
+            <div id="status"></div><br>
+            <div class="card">
+                <h5 class="card-header">Add a new photo to your album!</h5>
+                <div class="card-body"><h5 class="card-title">Select a photo...</h5>
+                    <input id="fileInput" type="file" name="file" />
+                    <pre id="fileContent"></pre>
+                    <button class="btn btn-info" id="send_it">Submit</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
