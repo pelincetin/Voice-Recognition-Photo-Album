@@ -1,4 +1,4 @@
-# COMS 6998 Cloud Computing Homework 3: Voice Recognition Photo Album
+# Voice Recognition Photo Album
 ### Pelin Cetin and Alex Atschinow
 
 Implemented a photo album web application, that can be searched using natural language through both text and voice input.
